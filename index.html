@@ -18,38 +18,59 @@
             position: relative;
         }
 
-            body::before {
-                content: "";
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url('snow.gif');
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-                z-index: -1;
-            }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('snow.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            z-index: -1;
+        }
 
         .postcard-container {
             position: relative;
-            transition: transform 1s ease-in-out, scale 0.5s ease-in-out;
-            transform-origin: center left;
+            transition: transform 1.5s ease-out, scale 1.5s ease-out; /* Увеличиваем время transition */
+            transform-origin: center center; /* Меняем origin для масштабирования */
             top: 10px;
             left: 0;
             margin-bottom: 20px;
         }
 
-            .postcard-container.open {
-                scale: 1.0; /* Убираем увеличение масштаба на мобильных */
-                transform: translateX(30vw); /* Уменьшаем смещение в сторону */
+        /* Стили для мобильных устройств (по умолчанию) */
+        .postcard-container {
+            scale: 0.8; /* Начальный отдаленный масштаб */
+        }
+
+        /* Анимация при загрузке на мобильных */
+        @media (max-width: 767px) {
+            .postcard-container {
+                animation: zoomIn 1.5s ease-out forwards;
             }
+        }
+
+        @keyframes zoomIn {
+            from {
+                scale: 0.8;
+            }
+            to {
+                scale: 1.0;
+            }
+        }
+
+        .postcard-container.open {
+            scale: 1.0;
+            transform: translateX(30vw);
+        }
 
         .postcard-top {
-            width: 80vw; /* Уменьшаем базовую ширину на мобильных */
+            width: 80vw;
             max-width: 450px;
-            height: 80vw; /* Сохраняем пропорции */
+            height: 80vw;
             max-height: 450px;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -67,13 +88,13 @@
             flex-direction: column;
         }
 
-            .postcard-top.closed {
-                transform: rotateY(0deg);
-            }
+        .postcard-top.closed {
+            transform: rotateY(0deg);
+        }
 
-            .postcard-top.open {
-                transform: rotateY(-180deg);
-            }
+        .postcard-top.open {
+            transform: rotateY(-180deg);
+        }
 
         .front, .back {
             position: absolute;
@@ -93,10 +114,10 @@
             background-color: inherit;
         }
 
-            .front p, .back p {
-                margin-bottom: 6px;
-                font-size: smaller;
-            }
+        .front p, .back p {
+            margin-bottom: 6px;
+            font-size: smaller;
+        }
 
         .front {
             background-color: #eee;
@@ -115,11 +136,11 @@
             align-items: center;
         }
 
-            .front-content img {
-                max-width: 90%;
-                height: auto;
-                margin-top: 5px;
-            }
+        .front-content img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 5px;
+        }
 
         .front-signature {
             position: absolute;
@@ -135,7 +156,7 @@
         }
 
         .postcard-bottom {
-            width: 80vw; /* Уменьшаем базовую ширину на мобильных */
+            width: 80vw;
             max-width: 450px;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -152,6 +173,9 @@
 
         /* Медиазапрос для экранов больше определенной ширины (например, для ПК) */
         @media (min-width: 768px) {
+            .postcard-container {
+                scale: 1.0; /* Устанавливаем нормальный масштаб для ПК */
+            }
             body {
                 padding-top: 50px;
             }
@@ -160,10 +184,10 @@
                 top: 50px;
             }
 
-                .postcard-container.open {
-                    scale: 1.2;
-                    transform: translateX(175px);
-                }
+            .postcard-container.open {
+                scale: 1.2;
+                transform: translateX(175px);
+            }
 
             .postcard-top, .postcard-bottom {
                 width: 450px;
